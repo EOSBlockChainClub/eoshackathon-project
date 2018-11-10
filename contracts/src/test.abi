@@ -1,0 +1,110 @@
+{
+    "____comment": "This file was generated with eosio-abigen. DO NOT EDIT Sat Nov 10 14:25:58 2018",
+    "version": "eosio::abi/1.0",
+    "structs": [
+        {
+            "name": "artist_info",
+            "base": "",
+            "fields": [
+                {
+                    "name": "artist",
+                    "type": "name"
+                }
+            ]
+        },
+        {
+            "name": "listener_info",
+            "base": "",
+            "fields": [
+                {
+                    "name": "listener",
+                    "type": "name"
+                }
+            ]
+        },
+        {
+            "name": "postsong",
+            "base": "",
+            "fields": [
+                {
+                    "name": "artist",
+                    "type": "name"
+                },
+                {
+                    "name": "ipfs_link",
+                    "type": "string"
+                }
+            ]
+        },
+        {
+            "name": "song",
+            "base": "",
+            "fields": [
+                {
+                    "name": "song_id",
+                    "type": "uint64"
+                },
+                {
+                    "name": "artist",
+                    "type": "name"
+                },
+                {
+                    "name": "ipfs_link",
+                    "type": "string"
+                }
+            ]
+        },
+        {
+            "name": "streamsong",
+            "base": "",
+            "fields": [
+                {
+                    "name": "song_id",
+                    "type": "uint64"
+                },
+                {
+                    "name": "listener",
+                    "type": "name"
+                }
+            ]
+        }
+    ],
+    "types": [],
+    "actions": [
+        {
+            "name": "postsong",
+            "type": "postsong",
+            "ricardian_contract": ""
+        },
+        {
+            "name": "streamsong",
+            "type": "streamsong",
+            "ricardian_contract": ""
+        }
+    ],
+    "tables": [
+        {
+            "name": "artists",
+            "type": "artist_info",
+            "index_type": "i64",
+            "key_names": [],
+            "key_types": []
+        },
+        {
+            "name": "listeners",
+            "type": "listener_info",
+            "index_type": "i64",
+            "key_names": [],
+            "key_types": []
+        },
+        {
+            "name": "songs",
+            "type": "song",
+            "index_type": "i64",
+            "key_names": [],
+            "key_types": []
+        }
+    ],
+    "ricardian_clauses": [],
+    "abi_extensions": []
+}

@@ -23,17 +23,17 @@ public:
         //uint16_t published_songs;
         
         uint64_t primary_key() const { return artist.value; }
-        EOSLIB_SERIALIZE(artist_info, (artist)))
-    }
+        EOSLIB_SERIALIZE(artist_info, (artist))
+    };
 
-    struct [[eosio:table]] listener_info {
+    struct [[eosio::table]] listener_info {
         name listener;
         //uint64_t last_song_played;
         //uint32_t last_play_time;
 
         uint64_t primary_key() const { return listener.value; }
         EOSLIB_SERIALIZE(listener_info, (listener)) 
-    }
+    };
 
     struct [[eosio::table]] song {
         uint64_t song_id;
