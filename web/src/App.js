@@ -139,6 +139,34 @@ console.log('audioControl:',song);
 									resumeSong={ this.resumeSong }
 									audioControl={ this.audioControl }
 								/>
+
+							<div class="container">
+      <div class="modal fade" id="myModal" role="dialog">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+              <h4 class="modal-title">Ed Silva</h4>
+            </div>
+            <div class="modal-body">
+						<p>Account name: <strong>useraaaaaaaa</strong></p>
+						<p>Sign up date: <strong>11/10/2018</strong></p>
+						<p>Lifetime revenue share: <strong>24.1120 EOS</strong></p>
+						<ul>
+								<li>Queen - 15 VOTES</li>
+								<li>Bag Raiders - 5 VOTES</li>
+						</ul>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+          </div>
+          
+        </div>
+      </div>
+      
+    </div>	
+
 							</div>
 						</div>
 						</div>

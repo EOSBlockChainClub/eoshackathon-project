@@ -17,6 +17,8 @@
   letter-spacing: 1px;
   cursor: pointer;
   outline: none;
+  max-height: 40px;
+  align-self: flex-end;
 }
 
 .main-pause-play-btn:hover{

@@ -86,8 +86,10 @@ const MainHeader = ({
             {/* <h3 className='header-title'>{headerTitle}</h3> */}
             {headerTitle !== 'Artists' && (
               <div>
-               <img src='../ed.jpeg' className='round-img'/>
                <div className='artistActions'> 
+               <button className="btnModal" type="button" data-toggle="modal" data-target="#myModal">
+               <img src='../ed.jpeg' className='round-img'/>
+               </button>
 
                 <button
                 onClick={!songPaused ? pauseSong : resumeSong}

@@ -28,6 +28,7 @@ class SongList extends Component {
       const buttonClass = song.track.id === this.props.songId && !this.props.songPaused ? "fa-pause" : "fa-play";
 
       return (
+        <div>
         <li className={song.track.id === this.props.songId ? 'active user-song-item' : 'user-song-item'} key={ i }>
           <div onClick={() => {(song.track.id === this.props.songId) && this.props.songPlaying && this.props.songPaused ? this.props.resumeSong() :
             this.props.songPlaying && !this.props.songPaused && (song.track.id === this.props.songId)  ? this.props.pauseSong() :
@@ -66,6 +67,7 @@ class SongList extends Component {
             <p>{ moment(song.added_at).format('YYYY-MM-DD')}</p>
           </div>
         </li>
+        </div>
       );
     });
   }

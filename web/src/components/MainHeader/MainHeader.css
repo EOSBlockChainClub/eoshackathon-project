@@ -101,12 +101,15 @@
 
 .round-img {
   border-radius: 50%;
-  height: 100px;
+  height: 80px;
   display: block;
+  margin-right: 52%;
 }
 
 .artistActions {
-  /* display: flex;
-  float:right;
-  margin-bottom: 10px; */
+  display: flex;
+}
+
+.btnModal {
+  margin-right: 52%;
 }
