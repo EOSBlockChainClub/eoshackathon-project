@@ -1,5 +1,5 @@
 {
-    "____comment": "This file was generated with eosio-abigen. DO NOT EDIT Sun Nov 11 08:49:56 2018",
+    "____comment": "This file was generated with eosio-abigen. DO NOT EDIT Sun Nov 11 09:33:28 2018",
     "version": "eosio::abi/1.0",
     "structs": [
         {
@@ -55,8 +55,48 @@
                     "type": "name"
                 },
                 {
+                    "name": "band_name",
+                    "type": "string"
+                },
+                {
                     "name": "votes_received",
                     "type": "asset"
+                }
+            ]
+        },
+        {
+            "name": "board",
+            "base": "",
+            "fields": [
+                {
+                    "name": "publisher",
+                    "type": "name"
+                },
+                {
+                    "name": "most_plays_artist",
+                    "type": "name"
+                },
+                {
+                    "name": "most_plays_album_id",
+                    "type": "uint64"
+                },
+                {
+                    "name": "most_plays_song_id",
+                    "type": "uint64"
+                },
+                {
+                    "name": "most_requested_artist",
+                    "type": "name"
+                }
+            ]
+        },
+        {
+            "name": "claimpayout",
+            "base": "",
+            "fields": [
+                {
+                    "name": "artist",
+                    "type": "name"
                 }
             ]
         },
@@ -83,6 +123,20 @@
                 {
                     "name": "end_subscribe",
                     "type": "uint32"
+                }
+            ]
+        },
+        {
+            "name": "payout",
+            "base": "",
+            "fields": [
+                {
+                    "name": "artist",
+                    "type": "name"
+                },
+                {
+                    "name": "winnings",
+                    "type": "asset"
                 }
             ]
         },
@@ -129,6 +183,10 @@
                 {
                     "name": "member",
                     "type": "name"
+                },
+                {
+                    "name": "band_name",
+                    "type": "string"
                 }
             ]
         },
@@ -223,6 +281,11 @@
             "ricardian_contract": ""
         },
         {
+            "name": "claimpayout",
+            "type": "claimpayout",
+            "ricardian_contract": ""
+        },
+        {
             "name": "postalbum",
             "type": "postalbum",
             "ricardian_contract": ""
@@ -264,8 +327,22 @@
             "key_types": []
         },
         {
+            "name": "board",
+            "type": "board",
+            "index_type": "i64",
+            "key_names": [],
+            "key_types": []
+        },
+        {
             "name": "listeners",
             "type": "listener_info",
+            "index_type": "i64",
+            "key_names": [],
+            "key_types": []
+        },
+        {
+            "name": "payouts",
+            "type": "payout",
             "index_type": "i64",
             "key_names": [],
             "key_types": []

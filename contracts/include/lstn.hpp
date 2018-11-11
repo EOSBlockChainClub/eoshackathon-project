@@ -25,10 +25,11 @@ public:
 
     struct [[eosio::table]] artist_info {
         name artist;
+        string band_name;
         asset votes_received;
         
         uint64_t primary_key() const { return artist.value; }
-        EOSLIB_SERIALIZE(artist_info, (artist)(votes_received))
+        EOSLIB_SERIALIZE(artist_info, (artist)(band_name)(votes_received))
     };
 
     struct [[eosio::table]] listener_info {
@@ -73,15 +74,20 @@ public:
         EOSLIB_SERIALIZE(vote_receipt, (receipt_id)(artist)(amount)(vote_time))
     };
 
-    // struct [[eosio::table]] board {
-    //     uint64_t board_id;
+    struct [[eosio::table]] board {
+        name publisher;
 
-    //     string board_name;
-    //     uint64_t reference;
+        name most_plays_artist;
+        uint64_t most_plays_album_id;
+        uint64_t most_plays_song_id;
 
-    //     uint64_t primary_key() const { return board_id; }
-    //     EOSLIB_SERIALIZE(board_id, (board_id)(most_played_song)(most_requested_artist))
-    // };
+        name most_requested_artist;
+
+        uint64_t primary_key() const { return publisher.value; }
+        EOSLIB_SERIALIZE(board, (publisher)
+            (most_plays_artist)(most_plays_album_id)(most_plays_song_id)
+            (most_requested_artist))
+    };
 
     struct [[eosio::table]] pool {
         name publisher;
@@ -95,6 +101,14 @@ public:
         EOSLIB_SERIALIZE(pool, (publisher)(most_plays_pool)(most_requested_artist_pool)(last_payout))
     };
 
+    struct [[eosio::table]] payout {
+        name artist;
+        asset winnings;
+
+        uint64_t primary_key() const { return artist.value; }
+        EOSLIB_SERIALIZE(payout, (artist)(winnings))
+    };
+
     typedef multi_index<name("artists"), artist_info> artists_table;
 
     typedef multi_index<name("listeners"), listener_info> listeners_table;
@@ -105,8 +119,11 @@ public:
 
     typedef multi_index<name("votereceipts"), vote_receipt> receipts_table;
 
-    //typedef multi_index<name("boards"), board> leaderboards_table;
-    //leaderboards_table boards;
+    typedef multi_index<name("payouts"), payout> payouts_table;
+
+    typedef singleton<name("boards"), board> leaderboards_table;
+    leaderboards_table boards;
+    board b;
 
     typedef singleton<name("pools"), pool> prize_pools;
     prize_pools pools;
@@ -116,7 +133,7 @@ public:
     void reglistener(name member);
 
     [[eosio::action]]
-    void regartist(name member);
+    void regartist(name member, string band_name);
 
     // [[eosio::action]]
     // void regboard(string board_name);
@@ -135,7 +152,12 @@ public:
     [[eosio::action]]
     void subscribe(name listener);
 
-    
+    [[eosio::action]]
+    void claimpayout(name artist);
+
+    //Helper Functions
+
+    void check_winner();
 
     // [[eosio::action]]
     // void vote(name board, asset num_votes, uint64_t recipient, name voter);

@@ -7,7 +7,7 @@
 
 #include "../include/lstn.hpp"
 
-lstn::lstn(name self, name code, datastream<const char*> ds) : contract(self, code, ds), pools(self, self.value) {
+lstn::lstn(name self, name code, datastream<const char*> ds) : contract(self, code, ds), pools(self, self.value), boards(self, self.value) {
     if (!pools.exists()) {
 
         p = pool{
@@ -21,12 +21,29 @@ lstn::lstn(name self, name code, datastream<const char*> ds) : contract(self, co
     } else {
         p = pools.get();
     }
+
+    if (!boards.exists()) {
+
+        b = board{
+            self //publisher
+        };
+
+        boards.set(b, self);
+    } else {
+        b = boards.get();
+    }
 }
 
 lstn::~lstn() {
     if (pools.exists()) {
         pools.set(p, _self);
     }
+
+    if (boards.exists()) {
+        boards.set(b, _self);
+    }
+
+    check_winner();
 }
 
 void lstn::reglistener(name member) {
@@ -41,7 +58,7 @@ void lstn::reglistener(name member) {
     });
 }
 
-void lstn::regartist(name member) {
+void lstn::regartist(name member, string band_name) {
     require_auth(member);
 
     artists_table artists(_self, _self.value);
@@ -49,22 +66,10 @@ void lstn::regartist(name member) {
 
     artists.emplace(_self, [&]( auto& l ) { //NOTE: payer may need to change
         l.artist = member;
+        l.band_name = band_name;
         l.votes_received = asset(0, symbol("VOTES", 0));
     });
 }
-
-// void lstn::regboard(string board_name) {
-//     require_auth(_self);
-    
-//     leaderboards_table boards(_self, _self.value);
-//     uint64_t new_board_id = boards.available_primary_key();
-
-//     boards.emplace(_self, [&]( auto& l ) { //NOTE: payer may need to change
-//         l.board_id = new_board_id;
-//         l.board_name = board_name;
-//         l.reference = 0;
-//     });
-// }
 
 void lstn::postalbum(name artist, string album_name) {
     require_auth(artist);
@@ -140,14 +145,21 @@ void lstn::streamsong(uint64_t album_id, uint64_t song_id, name listener) {
         l.plays += uint32_t(1);
     });
 
-    // leaderboards_table boards(_self, _self.value);
-    // auto b = boards.get(0); //first board is most plays
+    //update leaderboards
 
-    // if (sng.song_id == b.reference) {
-    //     return;
-    // } else {
-    //     songs_table leader(_self, _self.value);
-    // }
+    if (sng.song_id == b.most_plays_song_id) {
+        return;
+    } else {
+        songs_table leader(_self, b.most_plays_album_id);
+        auto top_song = leader.get(b.most_plays_song_id);
+
+        if (sng.plays > top_song.plays) {
+            b.most_plays_song_id = sng.song_id;
+            b.most_plays_album_id = album_id;
+            //TODO: update artist
+        }
+
+    }
 
     //TODO: don't award for listening to own music
 
@@ -176,7 +188,45 @@ void lstn::subscribe(name listener) {
     p.most_plays_pool += asset(10000, symbol("EOS", 4));
     p.most_requested_artist_pool += asset(10000, symbol("EOS", 4));
 
-    
 }
 
-EOSIO_DISPATCH(lstn, (reglistener)(regartist)(postalbum)(addsong)(streamsong)(subscribe))
+void lstn::claimpayout(name artist) {
+    require_auth(artist);
+
+    payouts_table payouts(_self, _self.value);
+    auto itr = payouts.find(artist.value);
+    eosio_assert(itr != payouts.end(), "no existing payout for artist");
+    auto pay = *itr;
+
+    //NOTE: 3.0000 EOS Payment
+    action(permission_level{ artist, name("active") }, name("eosio.token"), name("transfer"), make_tuple(
+    	_self,
+        artist,
+        pay.winnings,
+        std::string("Artist Winnings Payment")
+	)).send();
+
+}
+
+//Helper Functions
+
+void lstn::check_winner() {
+    if (now() - p.last_payout >= uint32_t(1209600)) { //NOTE: ~1 week
+
+        payouts_table playspay(_self, _self.value);
+        
+        playspay.emplace(_self, [&]( auto& l ) { //NOTE: payer may need to change
+            l.artist = b.most_plays_artist;
+            l.winnings = p.most_plays_pool;
+        });
+
+        payouts_table reqpay(_self, _self.value);
+
+        reqpay.emplace(_self, [&]( auto& l ) { //NOTE: payer may need to change
+            l.artist = b.most_requested_artist;
+            l.winnings = p.most_requested_artist_pool;
+        });
+    }
+}
+
+EOSIO_DISPATCH(lstn, (reglistener)(regartist)(postalbum)(addsong)(streamsong)(subscribe)(claimpayout))
