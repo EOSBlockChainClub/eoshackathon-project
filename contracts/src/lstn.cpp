@@ -5,7 +5,7 @@
  * @author Craig Branscom
  */
 
-#include "../include/hackathon.hpp"
+#include "../include/lstn.hpp"
 
 void lstn::reglistener(name member) {
     require_auth(member);
