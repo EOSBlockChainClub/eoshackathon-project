@@ -259,11 +259,11 @@ class MusicInterface {
 //
 //     let contractName = "useraaaaaaag";
 //     let interface = new MusicInterface(keys, contractName, "http://64.38.145.139:8888");
-//     try {
-//         await interface.initializeMockData();
-//     } catch (e) {
-//         console.log("Error initializing mock data: ", e);
-//     }
+//     // try {
+//     //     await interface.initializeMockData();
+//     // } catch (e) {
+//     //     console.log("Error initializing mock data: ", e);
+//     // }
 //
 //     try {
 //         let artist = await interface.getArtist(userAccounts[4]);
