@@ -1,0 +1,223 @@
+{
+    "____comment": "This file was generated with eosio-abigen. DO NOT EDIT Sun Nov 11 00:00:50 2018",
+    "version": "eosio::abi/1.0",
+    "structs": [
+        {
+            "name": "addsong",
+            "base": "",
+            "fields": [
+                {
+                    "name": "artist",
+                    "type": "name"
+                },
+                {
+                    "name": "album_id",
+                    "type": "uint64"
+                },
+                {
+                    "name": "song_name",
+                    "type": "string"
+                },
+                {
+                    "name": "ipfs_link",
+                    "type": "string"
+                }
+            ]
+        },
+        {
+            "name": "album",
+            "base": "",
+            "fields": [
+                {
+                    "name": "album_id",
+                    "type": "uint64"
+                },
+                {
+                    "name": "album_name",
+                    "type": "string"
+                },
+                {
+                    "name": "artist",
+                    "type": "name"
+                },
+                {
+                    "name": "post_time",
+                    "type": "uint32"
+                }
+            ]
+        },
+        {
+            "name": "artist_info",
+            "base": "",
+            "fields": [
+                {
+                    "name": "artist",
+                    "type": "name"
+                },
+                {
+                    "name": "votes_received",
+                    "type": "asset"
+                }
+            ]
+        },
+        {
+            "name": "listener_info",
+            "base": "",
+            "fields": [
+                {
+                    "name": "listener",
+                    "type": "name"
+                },
+                {
+                    "name": "castable_votes",
+                    "type": "asset"
+                },
+                {
+                    "name": "end_subscribe",
+                    "type": "uint32"
+                }
+            ]
+        },
+        {
+            "name": "postalbum",
+            "base": "",
+            "fields": [
+                {
+                    "name": "artist",
+                    "type": "name"
+                },
+                {
+                    "name": "album_name",
+                    "type": "string"
+                }
+            ]
+        },
+        {
+            "name": "regartist",
+            "base": "",
+            "fields": [
+                {
+                    "name": "member",
+                    "type": "name"
+                }
+            ]
+        },
+        {
+            "name": "reglistener",
+            "base": "",
+            "fields": [
+                {
+                    "name": "member",
+                    "type": "name"
+                }
+            ]
+        },
+        {
+            "name": "song",
+            "base": "",
+            "fields": [
+                {
+                    "name": "song_id",
+                    "type": "uint64"
+                },
+                {
+                    "name": "song_name",
+                    "type": "string"
+                },
+                {
+                    "name": "ipfs_link",
+                    "type": "string"
+                }
+            ]
+        },
+        {
+            "name": "streamsong",
+            "base": "",
+            "fields": [
+                {
+                    "name": "song_id",
+                    "type": "uint64"
+                },
+                {
+                    "name": "listener",
+                    "type": "name"
+                }
+            ]
+        },
+        {
+            "name": "subscribe",
+            "base": "",
+            "fields": [
+                {
+                    "name": "listener",
+                    "type": "name"
+                }
+            ]
+        }
+    ],
+    "types": [],
+    "actions": [
+        {
+            "name": "addsong",
+            "type": "addsong",
+            "ricardian_contract": ""
+        },
+        {
+            "name": "postalbum",
+            "type": "postalbum",
+            "ricardian_contract": ""
+        },
+        {
+            "name": "regartist",
+            "type": "regartist",
+            "ricardian_contract": ""
+        },
+        {
+            "name": "reglistener",
+            "type": "reglistener",
+            "ricardian_contract": ""
+        },
+        {
+            "name": "streamsong",
+            "type": "streamsong",
+            "ricardian_contract": ""
+        },
+        {
+            "name": "subscribe",
+            "type": "subscribe",
+            "ricardian_contract": ""
+        }
+    ],
+    "tables": [
+        {
+            "name": "albums",
+            "type": "album",
+            "index_type": "i64",
+            "key_names": [],
+            "key_types": []
+        },
+        {
+            "name": "artists",
+            "type": "artist_info",
+            "index_type": "i64",
+            "key_names": [],
+            "key_types": []
+        },
+        {
+            "name": "listeners",
+            "type": "listener_info",
+            "index_type": "i64",
+            "key_names": [],
+            "key_types": []
+        },
+        {
+            "name": "songs",
+            "type": "song",
+            "index_type": "i64",
+            "key_names": [],
+            "key_types": []
+        }
+    ],
+    "ricardian_clauses": [],
+    "abi_extensions": []
+}
