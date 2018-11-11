@@ -1,7 +1,7 @@
 .volume-container {
   position: absolute;
-  top: 48px;
-	right: 10px;
+  top: 36px;
+	right: 5vh;
 }
 
 .volume {
