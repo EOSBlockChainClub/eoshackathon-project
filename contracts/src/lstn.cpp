@@ -103,7 +103,9 @@ void lstn::addsong(name artist, uint64_t album_id, string song_name, string ipfs
     // eosio_assert(art_itr != artists.end(), "artist doesn't exist on the platform");
 
     albums_table albums(_self, artist.value);
-    auto alb = albums.get(album_id);
+    auto itr = albums.find(album_id);
+    eosio_assert(itr != albums.end(), "album doesnt exist on platform");
+    auto alb = *itr;
 
     //songs_table songs(_self, album_id);
     
@@ -122,7 +124,7 @@ void lstn::addsong(name artist, uint64_t album_id, string song_name, string ipfs
     vector<song> new_songs = alb.songs;
     new_songs.push_back(new_song);
 
-    albums.modify(alb, same_payer, [&]( auto& l ) {
+    albums.modify(itr, same_payer, [&]( auto& l ) {
         l.songs = new_songs;
     });
 

@@ -114,7 +114,7 @@ public:
 
     typedef multi_index<name("listeners"), listener_info> listeners_table;
 
-    typedef multi_index<name("songs"), song> songs_table; //NOTE: scoped by album_id
+    //typedef multi_index<name("songs"), song> songs_table; //NOTE: scoped by album_id
 
     typedef multi_index<name("albums"), album> albums_table; //NOTE: scoped by artist
 
