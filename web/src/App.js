@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Button, Divider, Form, Icon, Input, Segment, Header, Message } from 'semantic-ui-react';
+import { Button, Divider, Form, Icon, Image, Input, Segment, Header, Message } from 'semantic-ui-react';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
@@ -14,6 +14,8 @@ import MainView from './components/MainView';
 import ArtWork from './components/ArtWork';
 import MainHeader from './components/MainHeader';
 import SideMenu from './components/SideMenu';
+
+import logo from './logo.png';
 
 class App extends Component {
 
@@ -152,7 +154,7 @@ class App extends Component {
 						{this.state.showArtist == true ? 
 						<div>
 							<div className='left-side-section'>
-								<h2 className="app-name">LSTN</h2>
+								<h2 className="app-name"><Image src={logo} /></h2>
 								<UserPlaylists />
 								<ArtWork />
 							</div>
