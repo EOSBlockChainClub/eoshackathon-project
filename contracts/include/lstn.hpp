@@ -37,10 +37,12 @@ public:
     struct [[eosio::table]] listener_info {
         name listener;
         asset castable_votes;
+        uint16_t free_plays;
+        uint32_t last_recharge;
         uint32_t end_subscribe;
 
         uint64_t primary_key() const { return listener.value; }
-        EOSLIB_SERIALIZE(listener_info, (listener)(castable_votes)(end_subscribe))
+        EOSLIB_SERIALIZE(listener_info, (listener)(castable_votes)(free_plays)(last_recharge)(end_subscribe))
     };
 
     struct [[eosio::table]] song {
@@ -63,6 +65,16 @@ public:
         EOSLIB_SERIALIZE(album, (album_id)(album_name)(artist)(post_time))
     };
 
+    struct [[eosio::table]] vote_receipt {
+        uint64_t receipt_id;
+        name artist;
+        asset amount;
+        uint32_t vote_time;
+
+        uint64_t primary_key() const { return receipt_id; }
+        EOSLIB_SERIALIZE(vote_receipt, (receipt_id)(artist)(amount)(vote_time))
+    };
+
     // struct [[eosio::table]] leaderboard {
     //     name board;
     //     asset num_votes;
@@ -78,8 +90,9 @@ public:
 
     typedef multi_index<name("songs"), song> songs_table; //NOTE: scoped by album_id
 
-    typedef multi_index<name("albums"), album> albums_table;
+    typedef multi_index<name("albums"), album> albums_table; //NOTE: scoped by artist
 
+    typedef multi_index<name("votereceipts"), vote_receipt> receipts_table; 
     
 
     [[eosio::action]]

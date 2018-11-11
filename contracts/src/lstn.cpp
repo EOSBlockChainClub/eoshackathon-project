@@ -78,10 +78,29 @@ void lstn::streamsong(uint64_t song_id, name listener) {
     auto s_itr = songs.find(song_id);
     eosio_assert(s_itr != songs.end(), "song doesn't exist on the platform");
 
-    //TODO: pay tokens for listening
-    //TODO: don't award for listening to own music
+    listeners_table listeners(_self, _self.value);
+    auto l_itr = listeners.find(listener.value);
+    eosio_assert(l_itr != listeners.end(), "listener doesn't exist on platform");
+    auto lstnr = *l_itr;
 
-    //NOTE: pay the artist 1 token
+    eosio_assert(now() <= lstnr.end_subscribe, "subscription has ended");
+
+    uint32_t new_recharge_time = lstnr.last_recharge;
+
+    if (now() - lstnr.last_recharge >= uint32_t(17280)) { //over 1 day since last recharge
+        uint32_t new_recharge_time = now();
+    }
+
+    eosio_assert(lstnr.free_plays >= uint16_t(1), "listener has no more free plays");
+
+    uint16_t new_free_plays = lstnr.free_plays--;
+
+    listeners.modify(l_itr, same_payer, [&]( auto& l ) {
+        l.free_plays = new_free_plays;
+        l.last_recharge = new_recharge_time;
+    });
+
+    //TODO: don't award for listening to own music
 
 }
 
@@ -96,6 +115,15 @@ void lstn::subscribe(name listener) {
         l.castable_votes = asset(10, symbol("VOTES", 0));
         l.end_subscribe = now() + uint32_t(5184000); //NOTE: ~1 month
     });
+
+    //NOTE: 3.0000 EOS Payment
+    action(permission_level{ listener, name("active") }, name("eosio.token"), name("transfer"), make_tuple(
+    	listener,
+        _self,
+        asset(int64_t(30000), symbol("EOS", 4)),
+        std::string("Lstn Subscription Payment")
+	)).send();
+
 }
 
-EOSIO_DISPATCH(lstn, (reglistener)(regartist)(postalbum)(streamsong)(subscribe))
+EOSIO_DISPATCH(lstn, (reglistener)(regartist)(postalbum)(addsong)(streamsong)(subscribe))
