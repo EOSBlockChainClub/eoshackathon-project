@@ -19,6 +19,16 @@ class App extends Component {
 
 	static audio;
 
+	constructor(props){
+		super(props);
+
+		this.state = {
+			showArtist: false,
+			showUser: false,
+			panelCSS: 'initialPanel'
+		}
+	}
+
 	componentDidMount() {
 
 	  let hashParams = {};
@@ -85,21 +95,39 @@ class App extends Component {
 	  }
 	}
 
+	renderUser() {
+		this.setState({
+			showArtist: true,
+			showUser: false,
+			panelCSS: 'initialPanel-invisible'
+		});
+	}
+
+	renderArtist() {
+		this.setState({
+			showArtist: false,
+			showUser: true,
+			panelCSS: 'initialPanel-invisible'
+		});
+	}
+
 	render() {
 	  return (
-
 	    <div className='App'>
 	      <div className='app-container'>
-
-	        <div className='left-side-section'>
-						{/* <SideMenu /> */}
+				<div className={this.state.panelCSS} > 
+					<div class="button-panel" onClick={()=>this.renderArtist()}><p>Artist</p></div>
+					<div class="button-panel" onClick={()=>this.renderUser()}><p>User</p></div>
+				</div>
+	        
+					{
+						<div>{this.state.showArtist == false ? <div></div> : <div><div className='left-side-section'>
 						<h2 className="app-name">LSTN</h2>
 	          <UserPlaylists />
 	          <ArtWork />
 	        </div>
 
 	        <div className='main-section'>
-	          {/* <Header /> */}
 	          <div className='main-section-container'>
 	            <MainHeader
 	              pauseSong={ this.pauseSong }
@@ -111,14 +139,14 @@ class App extends Component {
 	              audioControl={ this.audioControl }
 	            />
 	          </div>
-	        </div>
-
+	        </div></div>}</div>
+					}	
 	        <Footer
 	          stopSong={ this.stopSong }
 	          pauseSong={ this.pauseSong }
 	          resumeSong={ this.resumeSong }
 	          audioControl={ this.audioControl }
-	        />
+	        /> 
 	      </div>
 	    </div>
 	  );
