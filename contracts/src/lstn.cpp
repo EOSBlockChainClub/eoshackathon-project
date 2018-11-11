@@ -227,6 +227,50 @@ void lstn::claimpayout(name artist) {
 
 }
 
+void lstn::vote(name artist, name voter) {
+    require_auth(voter);
+
+    artists_table artists(_self, _self.value);
+    auto art_itr = artists.find(artist.value);
+    eosio_assert(art_itr != artists.end(), "artist doesn't exist on the platform");
+    auto art = *art_itr;
+
+    listeners_table listeners(_self, _self.value);
+    auto l_itr = listeners.find(voter.value);
+    eosio_assert(l_itr != listeners.end(), "listener doesn't exist on platform");
+    auto lstnr = *l_itr;
+
+    asset new_votes = lstnr.castable_votes - asset(1, symbol("VOTES", 0));
+
+    asset new_total = art.votes_received + asset(1, symbol("VOTES", 0));
+
+    listeners.modify(l_itr, same_payer, [&]( auto& l ) {
+        l.castable_votes = new_votes;
+    });
+
+    artists.modify(art_itr, same_payer, [&]( auto& l ) {
+        l.votes_received = new_total;
+    });
+
+    receipts_table receipts(_self, artist.value);
+    auto itr = receipts.find(artist.value);
+
+    if (itr != receipts.end()) {
+        receipts.modify(itr, same_payer, [&]( auto& l ) {
+             l.amount = asset(1, symbol("VOTES", 0));
+             l.vote_time = now();
+        });
+    } else {
+        receipts.emplace(_self, [&]( auto& l ) {
+            l.artist = artist;
+            l.amount = asset(1, symbol("VOTES", 0));
+            l.vote_time = now();
+        });
+    }
+    
+
+}
+
 //Helper Functions
 
 void lstn::check_winner() {

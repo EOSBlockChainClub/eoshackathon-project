@@ -1,5 +1,5 @@
 {
-    "____comment": "This file was generated with eosio-abigen. DO NOT EDIT Sun Nov 11 10:34:22 2018",
+    "____comment": "This file was generated with eosio-abigen. DO NOT EDIT Sun Nov 11 11:17:21 2018",
     "version": "eosio::abi/1.0",
     "structs": [
         {
@@ -272,10 +272,6 @@
             "name": "vote_receipt",
             "base": "",
             "fields": [
-                {
-                    "name": "receipt_id",
-                    "type": "uint64"
-                },
                 {
                     "name": "artist",
                     "type": "name"
