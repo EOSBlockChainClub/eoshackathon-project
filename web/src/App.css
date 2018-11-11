@@ -95,3 +95,16 @@ body {
   font-family: 'Roboto', sans-serif;
   font-size:20px;
 }
+
+audio{
+  display: flex;
+  margin: 2vh auto;
+}
+
+audio::-webkit-media-controls-play-button{
+  color:white;
+} 
+
+audio::-webkit-media-controls-panel {
+ /* background-color:#F68931;   */
+}

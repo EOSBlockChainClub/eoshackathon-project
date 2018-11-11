@@ -1,5 +1,6 @@
-import uniqBy from 'lodash/uniqBy';
+import {uniqBy, forEach} from 'lodash/uniqBy';
 import { setArtistIds } from './artistActions';
+import musicAPI from '../MusicInterface';
 
 export const fetchSongsPending = () => {
   return {
@@ -73,27 +74,58 @@ export const searchSongsError = () => {
 
 export const searchSongs = (searchTerm, accessToken) => {
   return dispatch => {
-    const request = new Request(`https://api.spotify.com/v1/search?q=${searchTerm}&type=track`, {
-      headers: new Headers({
-        'Authorization': 'Bearer ' + accessToken,
-        'Accept': 'application/json'
-      })
-    });
 
     dispatch(searchSongsPending());
 
-    fetch(request).then(res => {
-      if(res.statusText === "Unauthorized") {
-        window.location.href = './';
-      }
-      return res.json();
-    }).then(res => {
-      res.items = res.tracks.items.map(item => {
-        return {
-          track: item
-        };
-      });
-      dispatch(searchSongsSuccess(res.items));
+    let songs = [];
+
+    musicAPI.getAllArtist().then(res => {
+      res.forEach( (artist) => {
+        if (searchTerm != '' && artist.band_name.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1)
+        {
+          musicAPI.getAlbums(artist.artist).then( albums => {
+            albums.forEach( (album) => {
+              const artistSongs = album.songs
+              .map((data) => {
+                const {
+                  song_name,
+                  plays,
+                  ipfs_link
+                } = data;
+                return {
+                  added_at: Date.now(),
+                  track: {
+                    id: Math.random(),
+                    name: song_name,
+                    title: song_name,
+                    plays: plays,
+                    stream_url: 'https://ipfs.io/ipfs/' + ipfs_link,
+                    preview_url: 'https://ipfs.io/ipfs/' + ipfs_link,
+                    artists:[{
+                      name: album.artist,
+                      band_name: artist.band_name,
+                      votes_received: artist.votes_received
+                    }],
+                    album: {
+                      id: album.album_id,
+                      name: album.album_name,
+                      images:[
+                        {
+                          url:''
+                        }
+                      ]
+                    }
+                  }
+                };
+              });
+              artistSongs.forEach( (song) => {
+                songs.push(song);
+              });
+            });
+            dispatch(searchSongsSuccess(songs));
+          });
+        }
+      });      
     }).catch(err => {
       dispatch(fetchSongsError(err));
     });
@@ -121,25 +153,10 @@ export const fetchRecentlyPlayedError = () => {
 
 export const fetchRecentlyPlayed = (accessToken) => {
   return dispatch => {
-    const request = new Request(`https://api.spotify.com/v1/me/player/recently-played`, {
-      headers: new Headers({
-        'Authorization': 'Bearer ' + accessToken
-      })
-    });
-
+    
     dispatch(fetchRecentlyPlayedPending());
 
-    fetch(request).then(res => {
-      return res.json();
-    }).then(res => {
-      //remove duplicates from recently played
-      res.items = uniqBy(res.items, (item) => {
-        return item.track.id;
-      });
-      dispatch(fetchRecentlyPlayedSuccess(res.items));
-    }).catch(err => {
-      dispatch(fetchRecentlyPlayedError(err));
-    });
+    
   };
 };
 

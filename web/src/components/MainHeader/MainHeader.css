@@ -98,3 +98,15 @@
 	margin-top: 20px;
 	margin-left: 40px;
 }
+
+.round-img {
+  border-radius: 50%;
+  height: 100px;
+  display: block;
+}
+
+.artistActions {
+  /* display: flex;
+  float:right;
+  margin-bottom: 10px; */
+}

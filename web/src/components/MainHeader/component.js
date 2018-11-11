@@ -70,8 +70,8 @@ const MainHeader = ({
             onClick={!songPaused ? pauseSong : resumeSong}
             className='main-pause-play-btn artist-button'>
                           {songPaused ? 
-                <p>PLAY <i class="fa fa-play" aria-hidden="true"></i> </p> : 
-                <p>PAUSE <i class="fa fa-pause" aria-hidden="true"></i> </p>
+                <p>PLAY <i class='fa fa-play' aria-hidden='true'></i> </p> : 
+                <p>PAUSE <i class='fa fa-pause' aria-hidden='true'></i> </p>
               }
           </button>
         </div>
@@ -86,19 +86,13 @@ const MainHeader = ({
             {/* <h3 className='header-title'>{headerTitle}</h3> */}
             {headerTitle !== 'Artists' && (
               <div>
-              <button
-                onClick={!songPaused ? pauseSong : resumeSong}
-                className='main-pause-play-btn'>
-                              {songPaused ? 
-                <p>PLAY <i class="fa fa-play" aria-hidden="true"></i> </p> : 
-                <p>PAUSE <i class="fa fa-pause" aria-hidden="true"></i> </p>
-              }
-              </button>
+               <img src='../ed.jpeg' className='round-img'/>
+               <div className='artistActions'> 
 
-               <button
+                <button
                 onClick={!songPaused ? pauseSong : resumeSong}
                 className='main-pause-play-btn main-pause-play-vote-btn '>
-                <p>VOTE <i class="fa fa-check" aria-hidden="true"></i> </p> 
+                <p>VOTE <i class='fa fa-check' aria-hidden='true'></i> </p> 
               </button>
 
                <button
@@ -112,6 +106,8 @@ const MainHeader = ({
                 className='main-pause-play-btn main-pause-play-vote-btn '>
                 <p>SHARE <i class="fa fa-share-alt" aria-hidden="true"></i> </p> 
               </button>
+               </div>
+              
               </div>
             )}
 
