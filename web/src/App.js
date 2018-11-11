@@ -81,7 +81,7 @@ class App extends Component {
 	audioControl = (song) => {
 
 	  const { playSong, stopSong } = this.props;
-
+console.log('audioControl:',song);
 	  if(this.audio === undefined){
 	    playSong(song.track);
 	    this.audio = new Audio(song.track.preview_url);
@@ -115,32 +115,34 @@ class App extends Component {
 	  return (
 	    <div className='App'>
 	      <div className='app-container'>
-				<div className={this.state.panelCSS} > 
-					<div class="button-panel" onClick={()=>this.renderArtist()}><p>Artist</p></div>
-					<div class="button-panel" onClick={()=>this.renderUser()}><p>User</p></div>
-				</div>
-	        
-					{
-						<div>{this.state.showArtist == false ? <div></div> : <div><div className='left-side-section'>
-						<h2 className="app-name">LSTN</h2>
-	          <UserPlaylists />
-	          <ArtWork />
-	        </div>
+					<div className={this.state.panelCSS} > 
+						<div class="button-panel" onClick={()=>this.renderArtist()}><p>Artist</p></div>
+						<div class="button-panel" onClick={()=>this.renderUser()}><p>User</p></div>
+					</div>
+						{
+						this.state.showArtist == false ? <div></div> : 
+						<div>
+							<div className='left-side-section'>
+								<h2 className="app-name">LSTN</h2>
+								<UserPlaylists />
+								<ArtWork />
+							</div>
 
-	        <div className='main-section'>
-	          <div className='main-section-container'>
-	            <MainHeader
-	              pauseSong={ this.pauseSong }
-	              resumeSong={ this.resumeSong }
-	            />
-	            <MainView
-	              pauseSong={this.pauseSong}
-	              resumeSong={ this.resumeSong }
-	              audioControl={ this.audioControl }
-	            />
-	          </div>
-	        </div></div>}</div>
-					}	
+						<div className='main-section'>
+							<div className='main-section-container'>
+								<MainHeader
+									pauseSong={ this.pauseSong }
+									resumeSong={ this.resumeSong }
+								/>
+								<MainView
+									pauseSong={this.pauseSong}
+									resumeSong={ this.resumeSong }
+									audioControl={ this.audioControl }
+								/>
+							</div>
+						</div>
+						</div>
+						}
 	        <Footer
 	          stopSong={ this.stopSong }
 	          pauseSong={ this.pauseSong }
