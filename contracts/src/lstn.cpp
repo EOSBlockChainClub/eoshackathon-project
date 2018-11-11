@@ -196,13 +196,13 @@ void lstn::subscribe(name listener) {
         l.end_subscribe = now() + uint32_t(5184000); //NOTE: ~1 month
     });
 
-    //NOTE: 3.0000 EOS Payment
-    action(permission_level{ listener, name("active") }, name("eosio.token"), name("transfer"), make_tuple(
-    	listener,
-        _self,
-        asset(int64_t(30000), symbol("EOS", 4)),
-        std::string("Lstn Subscription Payment")
-	)).send();
+    // //NOTE: 3.0000 EOS Payment
+    // action(permission_level{ listener, name("active") }, name("eosio.token"), name("transfer"), make_tuple(
+    // 	listener,
+    //     _self,
+    //     asset(int64_t(30000), symbol("EOS", 4)),
+    //     std::string("Lstn Subscription Payment")
+	// )).send();
 
     p.most_plays_pool += asset(10000, symbol("EOS", 4));
     p.most_requested_artist_pool += asset(10000, symbol("EOS", 4));
@@ -292,4 +292,4 @@ void lstn::check_winner() {
     }
 }
 
-EOSIO_DISPATCH(lstn, (reglistener)(regartist)(postalbum)(addsong)(streamsong)(subscribe)(claimpayout))
+EOSIO_DISPATCH(lstn, (reglistener)(regartist)(postalbum)(addsong)(streamsong)(subscribe)(claimpayout)(vote))

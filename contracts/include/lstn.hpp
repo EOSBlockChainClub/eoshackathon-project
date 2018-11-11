@@ -152,11 +152,11 @@ public:
     [[eosio::action]]
     void claimpayout(name artist);
 
+    [[eosio::action]]
+    void vote(name artist, name voter);
+
     //Helper Functions
 
     void check_winner();
-
-    [[eosio::action]]
-    void vote(name artist, name voter);
 
 };
