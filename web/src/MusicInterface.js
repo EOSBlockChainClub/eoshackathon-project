@@ -58,11 +58,7 @@ class MusicInterface {
         await this.postAlbum(userAccounts[5], "Bag Raiders");
         id = await this.getLastAlbumId(userAccounts[5]);
         console.log("getting bag raider album id: ", id);
-<<<<<<< HEAD
-        await this.addSong(userAccounts[5], "Shooting Stars", id, "Qmfdajskhvjhbuyaef");
-=======
         await this.addSong(userAccounts[5], "Shooting Stars", id, "QmeUZn92EaMg7YoWv4jeQ9HpmiELTVMGhYjXxEr54C74Si");
->>>>>>> 78a03217194772851724246a0882fd697d50cc1c
     }
 
     //TODO: configuration actions and finalization actions
