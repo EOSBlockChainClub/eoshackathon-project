@@ -19,7 +19,7 @@ class SongList extends Component {
 
   renderSongs() {
     return this.props.songs.map((song, i) => {
-      const buttonClass = song.track.id === this.props.songId && !this.props.songPaused ? "fa-pause-circle-o" : "fa-play-circle-o";
+      const buttonClass = song.track.id === this.props.songId && !this.props.songPaused ? "fa-pause" : "fa-play";
 
       return (
         <li className={song.track.id === this.props.songId ? 'active user-song-item' : 'user-song-item'} key={ i }>
@@ -29,20 +29,20 @@ class SongList extends Component {
             <i className={`fa ${buttonClass} play-btn`} aria-hidden="true"/>
           </div>
 
-          {this.props.viewType !== 'songs' && (
+          {/* {this.props.viewType !== 'songs' && (
             <p className='add-song' onClick={() => {this.props.addSongToLibrary(this.props.token, song.track.id);}}>
               {this.props.songAddedId === song.track.id ?
                 (<i className="fa fa-check add-song" aria-hidden="true" />) :
                 (<i className="fa fa-plus add-song" aria-hidden="true" />)
               }
             </p>
-          )}
+          )} */}
 
-          {this.props.viewType == 'songs' && (
+          {/* {this.props.viewType == 'songs' && (
             <p className='add-song'>
               <i className="fa fa-check" aria-hidden="true"/>
             </p>
-          )}
+          )} */}
 
           <div className='song-title'>
             <p>{ song.track.name }</p>

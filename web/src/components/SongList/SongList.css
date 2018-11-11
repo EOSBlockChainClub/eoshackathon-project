@@ -29,7 +29,7 @@
 }
 
 .user-song-item:hover {
-  background: rgb(51, 51, 51);
+  background:  #1db954;
 }
 
 .active.user-song-item {
@@ -75,12 +75,12 @@
 }
 
 .user-song-item  .play-song .fa {
-  font-size: 30px;
+  font-size: 22px;
   position: relative;
   top: 5px;
-  color: #ccc;
+  color: #fff;
   cursor: pointer;
-  -webkit-text-stroke: 2px rgb(24, 24, 24);
+  /* -webkit-text-stroke: 2px rgb(24, 24, 24); */
 }
 
 .play-song .fa:hover {
