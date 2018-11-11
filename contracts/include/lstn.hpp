@@ -135,13 +135,10 @@ public:
     [[eosio::action]]
     void regartist(name member, string band_name);
 
-    // [[eosio::action]]
-    // void regboard(string board_name);
-
 
 
     [[eosio::action]]
-    void postalbum(name artist, string album_name); //NOTE: maybe vector of strings?
+    void postalbum(name artist, string album_name);
 
     [[eosio::action]]
     void addsong(name artist, uint64_t album_id, string song_name, string ipfs_link);
@@ -159,7 +156,7 @@ public:
 
     void check_winner();
 
-    // [[eosio::action]]
-    // void vote(name board, asset num_votes, uint64_t recipient, name voter);
+    [[eosio::action]]
+    void vote(name artist, name voter);
 
 };
