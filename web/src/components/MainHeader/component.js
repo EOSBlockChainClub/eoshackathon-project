@@ -101,6 +101,12 @@ const MainHeader = ({
                 <p>VOTE <i class="fa fa-check" aria-hidden="true"></i> </p> 
               </button>
 
+               <button
+                onClick={!songPaused ? pauseSong : resumeSong}
+                className='main-pause-play-btn main-pause-play-vote-btn '>
+                <p>SUBSCRIBE</p> 
+              </button>
+
               <button
                 onClick={!songPaused ? pauseSong : resumeSong}
                 className='main-pause-play-btn main-pause-play-vote-btn '>
