@@ -1,0 +1,393 @@
+{
+    "____comment": "This file was generated with eosio-abigen. DO NOT EDIT Sun Nov 11 11:31:26 2018",
+    "version": "eosio::abi/1.0",
+    "structs": [
+        {
+            "name": "addsong",
+            "base": "",
+            "fields": [
+                {
+                    "name": "artist",
+                    "type": "name"
+                },
+                {
+                    "name": "album_id",
+                    "type": "uint64"
+                },
+                {
+                    "name": "song_name",
+                    "type": "string"
+                },
+                {
+                    "name": "ipfs_link",
+                    "type": "string"
+                }
+            ]
+        },
+        {
+            "name": "album",
+            "base": "",
+            "fields": [
+                {
+                    "name": "album_id",
+                    "type": "uint64"
+                },
+                {
+                    "name": "album_name",
+                    "type": "string"
+                },
+                {
+                    "name": "art_ipfs_url",
+                    "type": "string"
+                },
+                {
+                    "name": "artist",
+                    "type": "name"
+                },
+                {
+                    "name": "songs",
+                    "type": "song[]"
+                },
+                {
+                    "name": "post_time",
+                    "type": "uint32"
+                }
+            ]
+        },
+        {
+            "name": "artist_info",
+            "base": "",
+            "fields": [
+                {
+                    "name": "artist",
+                    "type": "name"
+                },
+                {
+                    "name": "band_name",
+                    "type": "string"
+                },
+                {
+                    "name": "votes_received",
+                    "type": "asset"
+                }
+            ]
+        },
+        {
+            "name": "board",
+            "base": "",
+            "fields": [
+                {
+                    "name": "publisher",
+                    "type": "name"
+                },
+                {
+                    "name": "most_plays_artist",
+                    "type": "name"
+                },
+                {
+                    "name": "most_plays_album_id",
+                    "type": "uint64"
+                },
+                {
+                    "name": "most_plays_song_id",
+                    "type": "uint64"
+                },
+                {
+                    "name": "most_requested_artist",
+                    "type": "name"
+                }
+            ]
+        },
+        {
+            "name": "claimpayout",
+            "base": "",
+            "fields": [
+                {
+                    "name": "artist",
+                    "type": "name"
+                }
+            ]
+        },
+        {
+            "name": "listener_info",
+            "base": "",
+            "fields": [
+                {
+                    "name": "listener",
+                    "type": "name"
+                },
+                {
+                    "name": "castable_votes",
+                    "type": "asset"
+                },
+                {
+                    "name": "free_plays",
+                    "type": "uint16"
+                },
+                {
+                    "name": "last_recharge",
+                    "type": "uint32"
+                },
+                {
+                    "name": "end_subscribe",
+                    "type": "uint32"
+                }
+            ]
+        },
+        {
+            "name": "payout",
+            "base": "",
+            "fields": [
+                {
+                    "name": "artist",
+                    "type": "name"
+                },
+                {
+                    "name": "winnings",
+                    "type": "asset"
+                }
+            ]
+        },
+        {
+            "name": "pool",
+            "base": "",
+            "fields": [
+                {
+                    "name": "publisher",
+                    "type": "name"
+                },
+                {
+                    "name": "most_plays_pool",
+                    "type": "asset"
+                },
+                {
+                    "name": "most_requested_artist_pool",
+                    "type": "asset"
+                },
+                {
+                    "name": "last_payout",
+                    "type": "uint32"
+                }
+            ]
+        },
+        {
+            "name": "postalbum",
+            "base": "",
+            "fields": [
+                {
+                    "name": "artist",
+                    "type": "name"
+                },
+                {
+                    "name": "album_name",
+                    "type": "string"
+                }
+            ]
+        },
+        {
+            "name": "regartist",
+            "base": "",
+            "fields": [
+                {
+                    "name": "member",
+                    "type": "name"
+                },
+                {
+                    "name": "band_name",
+                    "type": "string"
+                }
+            ]
+        },
+        {
+            "name": "reglistener",
+            "base": "",
+            "fields": [
+                {
+                    "name": "member",
+                    "type": "name"
+                }
+            ]
+        },
+        {
+            "name": "song",
+            "base": "",
+            "fields": [
+                {
+                    "name": "song_name",
+                    "type": "string"
+                },
+                {
+                    "name": "plays",
+                    "type": "uint32"
+                },
+                {
+                    "name": "ipfs_link",
+                    "type": "string"
+                }
+            ]
+        },
+        {
+            "name": "streamsong",
+            "base": "",
+            "fields": [
+                {
+                    "name": "album_id",
+                    "type": "uint64"
+                },
+                {
+                    "name": "song_id",
+                    "type": "uint64"
+                },
+                {
+                    "name": "listener",
+                    "type": "name"
+                }
+            ]
+        },
+        {
+            "name": "subscribe",
+            "base": "",
+            "fields": [
+                {
+                    "name": "listener",
+                    "type": "name"
+                }
+            ]
+        },
+        {
+            "name": "vote",
+            "base": "",
+            "fields": [
+                {
+                    "name": "artist",
+                    "type": "name"
+                },
+                {
+                    "name": "voter",
+                    "type": "name"
+                }
+            ]
+        },
+        {
+            "name": "vote_receipt",
+            "base": "",
+            "fields": [
+                {
+                    "name": "artist",
+                    "type": "name"
+                },
+                {
+                    "name": "amount",
+                    "type": "asset"
+                },
+                {
+                    "name": "vote_time",
+                    "type": "uint32"
+                }
+            ]
+        }
+    ],
+    "types": [],
+    "actions": [
+        {
+            "name": "addsong",
+            "type": "addsong",
+            "ricardian_contract": ""
+        },
+        {
+            "name": "claimpayout",
+            "type": "claimpayout",
+            "ricardian_contract": ""
+        },
+        {
+            "name": "postalbum",
+            "type": "postalbum",
+            "ricardian_contract": ""
+        },
+        {
+            "name": "regartist",
+            "type": "regartist",
+            "ricardian_contract": ""
+        },
+        {
+            "name": "reglistener",
+            "type": "reglistener",
+            "ricardian_contract": ""
+        },
+        {
+            "name": "streamsong",
+            "type": "streamsong",
+            "ricardian_contract": ""
+        },
+        {
+            "name": "subscribe",
+            "type": "subscribe",
+            "ricardian_contract": ""
+        },
+        {
+            "name": "vote",
+            "type": "vote",
+            "ricardian_contract": ""
+        }
+    ],
+    "tables": [
+        {
+            "name": "albums",
+            "type": "album",
+            "index_type": "i64",
+            "key_names": [],
+            "key_types": []
+        },
+        {
+            "name": "artists",
+            "type": "artist_info",
+            "index_type": "i64",
+            "key_names": [],
+            "key_types": []
+        },
+        {
+            "name": "board",
+            "type": "board",
+            "index_type": "i64",
+            "key_names": [],
+            "key_types": []
+        },
+        {
+            "name": "listeners",
+            "type": "listener_info",
+            "index_type": "i64",
+            "key_names": [],
+            "key_types": []
+        },
+        {
+            "name": "payouts",
+            "type": "payout",
+            "index_type": "i64",
+            "key_names": [],
+            "key_types": []
+        },
+        {
+            "name": "pool",
+            "type": "pool",
+            "index_type": "i64",
+            "key_names": [],
+            "key_types": []
+        },
+        {
+            "name": "song",
+            "type": "song",
+            "index_type": "i64",
+            "key_names": [],
+            "key_types": []
+        },
+        {
+            "name": "votereceipts",
+            "type": "vote_receipt",
+            "index_type": "i64",
+            "key_names": [],
+            "key_types": []
+        }
+    ],
+    "ricardian_clauses": [],
+    "abi_extensions": []
+}
