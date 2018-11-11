@@ -83,10 +83,13 @@ void lstn::postalbum(name artist, string album_name) {
 
     auto new_album_id = albums.available_primary_key();
 
+    vector<song> songs;
+
     albums.emplace(_self, [&]( auto& l ) {
         l.album_id = new_album_id;
         l.album_name = album_name;
         l.artist = artist;
+        l.songs = songs;
         l.post_time = now();
     });
 
