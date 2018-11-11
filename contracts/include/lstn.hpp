@@ -8,6 +8,7 @@
 #include <eosiolib/eosio.hpp>
 #include <eosiolib/types.h>
 #include <eosiolib/asset.hpp>
+#include <eosiolib/singleton.hpp>
 
 using namespace eosio;
 using namespace std;
@@ -18,13 +19,9 @@ public:
 
     using contract::contract;
 
-    //lstn() : contract();
-
-    //TODO: global config
-
-    //TODO: how to pay out artists for individual plays
-
-    //TODO: calculate number of free songs
+    lstn(name self, name code, datastream<const char*> ds);
+    
+    ~lstn();
 
     struct [[eosio::table]] artist_info {
         name artist;
@@ -48,10 +45,11 @@ public:
     struct [[eosio::table]] song {
         uint64_t song_id;
         string song_name;
+        uint32_t plays;
         string ipfs_link;
 
         uint64_t primary_key() const { return song_id; }
-        EOSLIB_SERIALIZE(song, (song_id)(song_name)(ipfs_link))
+        EOSLIB_SERIALIZE(song, (song_id)(song_name)(plays)(ipfs_link))
     };
 
     struct [[eosio::table]] album {
@@ -75,14 +73,27 @@ public:
         EOSLIB_SERIALIZE(vote_receipt, (receipt_id)(artist)(amount)(vote_time))
     };
 
-    // struct [[eosio::table]] leaderboard {
-    //     name board;
-    //     asset num_votes;
+    // struct [[eosio::table]] board {
+    //     uint64_t board_id;
+
+    //     string board_name;
     //     uint64_t reference;
 
-    //     uint64_t primary_key() const { return board.value; }
-    //     EOSLIB_SERIALIZE(leaderboard, (board)(num_votes)(reference))
+    //     uint64_t primary_key() const { return board_id; }
+    //     EOSLIB_SERIALIZE(board_id, (board_id)(most_played_song)(most_requested_artist))
     // };
+
+    struct [[eosio::table]] pool {
+        name publisher;
+
+        asset most_plays_pool; 
+        asset most_requested_artist_pool;
+
+        uint32_t last_payout;
+
+        uint64_t primary_key() const { return publisher.value; }
+        EOSLIB_SERIALIZE(pool, (publisher)(most_plays_pool)(most_requested_artist_pool)(last_payout))
+    };
 
     typedef multi_index<name("artists"), artist_info> artists_table;
 
@@ -92,14 +103,23 @@ public:
 
     typedef multi_index<name("albums"), album> albums_table; //NOTE: scoped by artist
 
-    typedef multi_index<name("votereceipts"), vote_receipt> receipts_table; 
-    
+    typedef multi_index<name("votereceipts"), vote_receipt> receipts_table;
+
+    //typedef multi_index<name("boards"), board> leaderboards_table;
+    //leaderboards_table boards;
+
+    typedef singleton<name("pools"), pool> prize_pools;
+    prize_pools pools;
+    pool p;
 
     [[eosio::action]]
     void reglistener(name member);
 
     [[eosio::action]]
     void regartist(name member);
+
+    // [[eosio::action]]
+    // void regboard(string board_name);
 
 
 
@@ -110,13 +130,14 @@ public:
     void addsong(name artist, uint64_t album_id, string song_name, string ipfs_link);
 
     [[eosio::action]]
-    void streamsong(uint64_t song_id, name listener);
+    void streamsong(uint64_t album_id, uint64_t song_id, name listener);
 
     [[eosio::action]]
     void subscribe(name listener);
 
+    
+
     // [[eosio::action]]
     // void vote(name board, asset num_votes, uint64_t recipient, name voter);
 
-    //TODO: subscribe action, singleton for price pool
 };

@@ -1,5 +1,5 @@
 {
-    "____comment": "This file was generated with eosio-abigen. DO NOT EDIT Sun Nov 11 07:04:35 2018",
+    "____comment": "This file was generated with eosio-abigen. DO NOT EDIT Sun Nov 11 08:49:56 2018",
     "version": "eosio::abi/1.0",
     "structs": [
         {
@@ -87,6 +87,28 @@
             ]
         },
         {
+            "name": "pool",
+            "base": "",
+            "fields": [
+                {
+                    "name": "publisher",
+                    "type": "name"
+                },
+                {
+                    "name": "most_plays_pool",
+                    "type": "asset"
+                },
+                {
+                    "name": "most_requested_artist_pool",
+                    "type": "asset"
+                },
+                {
+                    "name": "last_payout",
+                    "type": "uint32"
+                }
+            ]
+        },
+        {
             "name": "postalbum",
             "base": "",
             "fields": [
@@ -133,6 +155,10 @@
                     "type": "string"
                 },
                 {
+                    "name": "plays",
+                    "type": "uint32"
+                },
+                {
                     "name": "ipfs_link",
                     "type": "string"
                 }
@@ -142,6 +168,10 @@
             "name": "streamsong",
             "base": "",
             "fields": [
+                {
+                    "name": "album_id",
+                    "type": "uint64"
+                },
                 {
                     "name": "song_id",
                     "type": "uint64"
@@ -236,6 +266,13 @@
         {
             "name": "listeners",
             "type": "listener_info",
+            "index_type": "i64",
+            "key_names": [],
+            "key_types": []
+        },
+        {
+            "name": "pool",
+            "type": "pool",
             "index_type": "i64",
             "key_names": [],
             "key_types": []

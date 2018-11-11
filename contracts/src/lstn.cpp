@@ -7,6 +7,28 @@
 
 #include "../include/lstn.hpp"
 
+lstn::lstn(name self, name code, datastream<const char*> ds) : contract(self, code, ds), pools(self, self.value) {
+    if (!pools.exists()) {
+
+        p = pool{
+            self, //publisher
+            asset(0, symbol("EOS", 4)), //most_plays_pool
+            asset(0, symbol("EOS", 4)), //most_requested_artist_pool
+            now() //last_payout
+        };
+
+        pools.set(p, self);
+    } else {
+        p = pools.get();
+    }
+}
+
+lstn::~lstn() {
+    if (pools.exists()) {
+        pools.set(p, _self);
+    }
+}
+
 void lstn::reglistener(name member) {
     require_auth(member);
 
@@ -30,6 +52,19 @@ void lstn::regartist(name member) {
         l.votes_received = asset(0, symbol("VOTES", 0));
     });
 }
+
+// void lstn::regboard(string board_name) {
+//     require_auth(_self);
+    
+//     leaderboards_table boards(_self, _self.value);
+//     uint64_t new_board_id = boards.available_primary_key();
+
+//     boards.emplace(_self, [&]( auto& l ) { //NOTE: payer may need to change
+//         l.board_id = new_board_id;
+//         l.board_name = board_name;
+//         l.reference = 0;
+//     });
+// }
 
 void lstn::postalbum(name artist, string album_name) {
     require_auth(artist);
@@ -71,12 +106,13 @@ void lstn::addsong(name artist, uint64_t album_id, string song_name, string ipfs
 
 }
 
-void lstn::streamsong(uint64_t song_id, name listener) {
+void lstn::streamsong(uint64_t album_id, uint64_t song_id, name listener) {
     require_auth(listener);
 
-    songs_table songs(_self, _self.value);
+    songs_table songs(_self, album_id);
     auto s_itr = songs.find(song_id);
     eosio_assert(s_itr != songs.end(), "song doesn't exist on the platform");
+    auto sng = *s_itr;
 
     listeners_table listeners(_self, _self.value);
     auto l_itr = listeners.find(listener.value);
@@ -99,6 +135,19 @@ void lstn::streamsong(uint64_t song_id, name listener) {
         l.free_plays = new_free_plays;
         l.last_recharge = new_recharge_time;
     });
+
+    songs.modify(s_itr, same_payer, [&]( auto& l ) {
+        l.plays += uint32_t(1);
+    });
+
+    // leaderboards_table boards(_self, _self.value);
+    // auto b = boards.get(0); //first board is most plays
+
+    // if (sng.song_id == b.reference) {
+    //     return;
+    // } else {
+    //     songs_table leader(_self, _self.value);
+    // }
 
     //TODO: don't award for listening to own music
 
@@ -124,6 +173,10 @@ void lstn::subscribe(name listener) {
         std::string("Lstn Subscription Payment")
 	)).send();
 
+    p.most_plays_pool += asset(10000, symbol("EOS", 4));
+    p.most_requested_artist_pool += asset(10000, symbol("EOS", 4));
+
+    
 }
 
 EOSIO_DISPATCH(lstn, (reglistener)(regartist)(postalbum)(addsong)(streamsong)(subscribe))
