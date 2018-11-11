@@ -6,8 +6,9 @@ import { fetchUser } from './actions/userActions';
 import { setToken } from './actions/tokenActions';
 import { playSong, stopSong, pauseSong, resumeSong } from './actions/songActions';
 import './App.css';
-
-import Header from './components/Header';
+import { Button, Divider, Form, Icon, Input,Image, Segment, Header, Message } from 'semantic-ui-react';
+import logo from './logo.png';
+// import Header from './components/Header';
 import Footer from './components/Footer';
 import UserPlaylists from './components/UserPlaylists';
 import MainView from './components/MainView';
@@ -119,32 +120,66 @@ console.log('audioControl:',song);
 						<div class="button-panel" onClick={()=>this.renderArtist()}><p>Artist</p></div>
 						<div class="button-panel" onClick={()=>this.renderUser()}><p>User</p></div>
 					</div>
-						{
-						this.state.showArtist == false ? <div></div> : 
+					{this.state.showUser == true ? 
+						<div className='main-section'>
+								<Segment basic clearing>
+										<Header attached="top" color="black" block size="huge">
+											Register as an Artist
+											<Header.Subheader>
+												Take control of your content
+											</Header.Subheader>
+										</Header>
+									<Message content="Welcome to LSTN" warning  />
+									<Form.Field
+										label="Account Name"
+										fluid="true"
+										control={Input}
+									/>
+									
+									<Form.Field
+										label="Band Name"
+										fluid="true"
+										control={Input}
+									/>
+									<Divider />
+									<Button
+										content="Register"
+										floated="right"
+										onClick={()=>this.renderUser()}
+									/>
+								</Segment>
+						</div> 
+						: ''
+						}
+						{this.state.showArtist == true ? 
 						<div>
 							<div className='left-side-section'>
-								<h2 className="app-name">LSTN</h2>
+							<h2 className="app-name"><Image src={logo} /></h2>
 								<UserPlaylists />
 								<ArtWork />
 							</div>
 
-						<div className='main-section'>
-							<div className='main-section-container'>
-								<MainHeader
-									pauseSong={ this.pauseSong }
-									resumeSong={ this.resumeSong }
-								/>
-								<MainView
-									pauseSong={this.pauseSong}
-									resumeSong={ this.resumeSong }
-									audioControl={ this.audioControl }
-								/>
-
-							<div class="container">
-      <div class="modal fade" id="myModal" role="dialog">
-        <div class="modal-dialog">
-          <div class="modal-content">
-            <div class="modal-header">
+							<div className='main-section'>
+								<div className='main-section-container'>
+									<MainHeader
+										pauseSong={ this.pauseSong }
+										resumeSong={ this.resumeSong }
+									/>
+									<MainView
+										pauseSong={this.pauseSong}
+										resumeSong={ this.resumeSong }
+										audioControl={ this.audioControl }
+									/>
+								</div>
+							</div>
+						</div>
+						: ''
+						}
+						<div class="container">
+					<div class="modal fade" id="myModal" role="dialog">
+						<div class="modal-dialog">
+							<div class="modal-content">
+								<div class="modal-header">
               <button type="button" class="close" data-dismiss="modal">&times;</button>
               <h4 class="modal-title">Ed Silva</h4>
             </div>
@@ -167,10 +202,9 @@ console.log('audioControl:',song);
       
     </div>	
 
-							</div>
-						</div>
-						</div>
-						}
+
+
+						
 	        <Footer
 	          stopSong={ this.stopSong }
 	          pauseSong={ this.pauseSong }
