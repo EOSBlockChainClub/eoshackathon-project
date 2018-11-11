@@ -3,7 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "eosjs": "^20.0.0-beta2",
     "lodash": "^4.17.4",
+    "node-fetch": "^2.2.1",
     "react": "^16.1.1",
     "react-dom": "^16.1.1",
     "react-redux": "^5.0.6",
