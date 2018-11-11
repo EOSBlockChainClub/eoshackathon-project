@@ -5,6 +5,7 @@
 
 .track-search-container input {
 	background: #fff;
+	border:1px solid #F68931 !important;
 	width: 120px;
 	border-radius: 0; /*10px;*/
 	border: none;
@@ -14,10 +15,10 @@
 }
 
 .search {
-	margin-left: 5px;
+	margin-left: 0px;
 	cursor: pointer;
 	cursor: pointer;
-  color: white;
+  color: #F68931;
   font-size: 15px;
 }
 

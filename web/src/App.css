@@ -46,7 +46,7 @@ body {
   top: 10px;
   left: 10px;
   bottom: 10px;
-  width: 180px;
+  width: 210px;
   overflow-y: auto;
   background-color:#fff;
 }
@@ -54,7 +54,7 @@ body {
 .main-section {
   width: 900px;
   position: relative;
-  left: 200px;
+  left: 215px;
   padding: 0 10px;
 }
 
