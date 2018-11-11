@@ -19,6 +19,10 @@
   outline: none;
 }
 
+.main-pause-play-btn:hover{
+  background: #D9632C;
+} 
+
 .main-pause-play-vote-btn {
   margin-left: 5px;
 }

@@ -99,7 +99,12 @@ const MainHeader = ({
                 onClick={!songPaused ? pauseSong : resumeSong}
                 className='main-pause-play-btn main-pause-play-vote-btn '>
                 <p>VOTE <i class="fa fa-check" aria-hidden="true"></i> </p> 
-              
+              </button>
+
+              <button
+                onClick={!songPaused ? pauseSong : resumeSong}
+                className='main-pause-play-btn main-pause-play-vote-btn '>
+                <p>SHARE <i class="fa fa-share-alt" aria-hidden="true"></i> </p> 
               </button>
               </div>
             )}
