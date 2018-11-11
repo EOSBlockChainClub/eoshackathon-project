@@ -37,28 +37,28 @@ class MusicInterface {
         await this.postAlbum(userAccounts[3], "Jazz");
         let id = await this.getLastAlbumId(userAccounts[3]);
         console.log("Getting Jazz Album ID: ", id);
-        await this.addSong(userAccounts[3], "Don't Stop Me Now", id, "Qmadjkfhadlkfhalsdkfj");
+        await this.addSong(userAccounts[3], "Don't Stop Me Now", id, "QmXzBhxVYtZXiuyhcVsrXmt6A5Ca6quSaMtsTL19uUUAeq");
 
         await this.postAlbum(userAccounts[3], "News of the World");
         id = await this.getLastAlbumId(userAccounts[3]);
         console.log("Getting News of the World id: ", id);
-        await this.addSong(userAccounts[3], "Bohemian Rhapsody", id, "Qmklsdfjasdhfjksadhflkhasd");
+        await this.addSong(userAccounts[3], "Bohemian Rhapsody", id, "QmZZGCmAR5UqhWZ2F7JsFiJWsL28RLbkwvboAPMNPq2hZp");
 
         await this.regArtist(userAccounts[4], "Modest Mouse");
         await this.postAlbum(userAccounts[4], "Good News for People Who Love Bad News");
         id = await this.getLastAlbumId(userAccounts[4]);
         console.log("getting Good News id: ", id);
         await this.addSongs(userAccounts[4], id, [
-            { songName: "Float On", link: "Qmadsfjkhadsljkfhasljdkfh"},
-            { songName: "Ocean Breathes Salty", link: "Qmadjkfhlakdhfkljshadf"},
-            { songName: "The World at Large", link: "Qmdsakjfhaskdhflkasdjhfl"}
+            { songName: "Float On", link: "QmfYsASWz4ag4cJSJgZ9PdYus1WuTcBeLhwdFHLVjG2GQb"},
+            { songName: "Ocean Breathes Salty", link: "QmfX88zwd4V6YWyfXngkoCFJYgqvUZoBk3paQYkYQMoBqn"},
+            { songName: "The World at Large", link: "QmfX88zwd4V6YWyfXngkoCFJYgqvUZoBk3paQYkYQMoBqn"}
         ]);
 
         await this.regArtist(userAccounts[5], "Bag Raiders");
         await this.postAlbum(userAccounts[5], "Bag Raiders");
         id = await this.getLastAlbumId(userAccounts[5]);
         console.log("getting bag raider album id: ", id);
-        await this.addSong(userAccounts[5], "Shooting Stars", id, "Qmfdajskhvjhbuyaef");
+        await this.addSong(userAccounts[5], "Shooting Stars", id, "QmeUZn92EaMg7YoWv4jeQ9HpmiELTVMGhYjXxEr54C74Si");
     }
 
     //TODO: configuration actions and finalization actions
@@ -200,15 +200,21 @@ class MusicInterface {
         let action = {
             account: this.contractName,
             name: "streamsong",
-            authorization: {actor: listener, permission: "active"},
+            authorization: [{actor: listener, permission: "active"}],
             data: {song_id: songId, listener: listener}
         };
         return await this.send([action]);
     }
 
     //TODO: vote changing...
-    async vote() {
-
+    async vote(artistName, voterName) {
+        let action = {
+            account: this.contractName,
+            name: "vote",
+            authorization: [{actor: voterName, permission: "active"}],
+            data: {artist: artistName, voter: voterName}
+        };
+        return await this.send([action]);
     }
 
     //TODO: subscribe args: name listener
@@ -253,11 +259,11 @@ class MusicInterface {
 //
 //     let contractName = "useraaaaaaag";
 //     let interface = new MusicInterface(keys, contractName, "http://64.38.145.139:8888");
-//     // try {
-//     //     await interface.initializeMockData();
-//     // } catch (e) {
-//     //     console.log("Error initializing mock data: ", e);
-//     // }
+//     try {
+//         await interface.initializeMockData();
+//     } catch (e) {
+//         console.log("Error initializing mock data: ", e);
+//     }
 //
 //     try {
 //         let artist = await interface.getArtist(userAccounts[4]);
