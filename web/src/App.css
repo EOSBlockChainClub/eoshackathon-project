@@ -25,15 +25,20 @@ h3 {
 body {
   font-family: 'Roboto', sans-serif;
     background: rgb(24, 24, 24);
-    color: #fff;
+    color: #F68931;
     max-width: 1400px;
     margin: 0 auto;
     padding: 0;
+    background-color:#fff;
 }
 
 .app-container {
   display: flex;
   position: relative;
+}
+
+.app-name {
+  padding: 20px 20px 0px 20px;
 }
 
 .left-side-section {
@@ -43,6 +48,7 @@ body {
   bottom: 10px;
   width: 180px;
   overflow-y: auto;
+  background-color:#fff;
 }
 
 .main-section {

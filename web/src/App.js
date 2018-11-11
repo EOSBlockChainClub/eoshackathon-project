@@ -92,13 +92,14 @@ class App extends Component {
 	      <div className='app-container'>
 
 	        <div className='left-side-section'>
-	          {/* <SideMenu /> */}
+						{/* <SideMenu /> */}
+						<h2 className="app-name">LSTN</h2>
 	          <UserPlaylists />
 	          <ArtWork />
 	        </div>
 
 	        <div className='main-section'>
-	          <Header />
+	          {/* <Header /> */}
 	          <div className='main-section-container'>
 	            <MainHeader
 	              pauseSong={ this.pauseSong }
