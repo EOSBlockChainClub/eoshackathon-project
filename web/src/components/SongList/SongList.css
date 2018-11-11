@@ -2,12 +2,12 @@
   font-size: 34px;
   font-weight: 800;
   padding: 0 0 20px 0;
-  font-family: 'Proxima Bold', Georgia, sans-serif;
+  font-family: 'Roboto', sans-serif;
 }
 
 .main-pause-play-btn {
-  background: #1db954;
-  font-family: 'Proxima Nova', Georgia, sans-serif;
+  background: #F36C35;
+  font-family: 'Roboto', sans-serif;
   color: #fff;
   border: none;
   border-radius: 1px; /*20px;*/
@@ -17,6 +17,10 @@
   letter-spacing: 1px;
   cursor: pointer;
   outline: none;
+}
+
+.main-pause-play-vote-btn {
+  margin-left: 5px;
 }
 
 .user-song-item {
@@ -29,11 +33,11 @@
 }
 
 .user-song-item:hover {
-  background: rgb(51, 51, 51);
+  background:  #F2ECDA;
 }
 
 .active.user-song-item {
-  color: #1db954;
+  color: #F2ECDA;
   background: rgb(51, 51, 51);
 }
 
@@ -75,12 +79,12 @@
 }
 
 .user-song-item  .play-song .fa {
-  font-size: 30px;
+  font-size: 22px;
   position: relative;
   top: 5px;
-  color: #ccc;
+  color: #fff;
   cursor: pointer;
-  -webkit-text-stroke: 2px rgb(24, 24, 24);
+  /* -webkit-text-stroke: 2px rgb(24, 24, 24); */
 }
 
 .play-song .fa:hover {
@@ -96,6 +100,7 @@
   text-overflow: ellipsis;
   padding: 0 8px;
   line-height: 42px;
+  margin-left:15px;
 }
 
 .song-length,
@@ -127,7 +132,7 @@
 .song-artist-header p,
 .song-album-header p,
 .song-length-header p {
-  font-family: 'Proxima Thin', Georgia, sans-serif;
+  font-family: 'Roboto', sans-serif;
   text-transform: uppercase;
   font-size: 12px;
   color: #ccc;

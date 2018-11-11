@@ -23,12 +23,13 @@ h3 {
 }
 
 body {
-    font-family: 'Proxima Nova', Georgia, sans-serif;
+  font-family: 'Roboto', sans-serif;
     background: rgb(24, 24, 24);
-    color: #fff;
+    color: #F68931;
     max-width: 1400px;
     margin: 0 auto;
     padding: 0;
+    background-color:#fff;
 }
 
 .app-container {
@@ -36,19 +37,24 @@ body {
   position: relative;
 }
 
+.app-name {
+  padding: 20px 20px 0px 20px;
+}
+
 .left-side-section {
   position: fixed;
   top: 10px;
   left: 10px;
   bottom: 10px;
-  width: 180px;
+  width: 210px;
   overflow-y: auto;
+  background-color:#fff;
 }
 
 .main-section {
   width: 900px;
   position: relative;
-  left: 200px;
+  left: 215px;
   padding: 0 10px;
 }
 
@@ -56,4 +62,36 @@ body {
   position: relative;
   top: 50px;
   padding-bottom: 100px;
+}
+
+.initialPanel {
+  margin: 40vh auto;
+  display: flex;
+}
+
+.button-panel {
+  color: #fff;
+  border: 1px solid #F68931;
+  background-color:#F68931;
+  height: 130px;
+  width: 270px;
+  text-align: center;
+  margin-left: 20vh;
+}
+
+.initialPanel-invisible {
+  display: none;
+}
+
+.button-panel:hover {
+  color: #F68931; 
+  background-color:#fff;
+  border: 1px solid #F68931;
+  cursor: pointer;
+}
+
+.button-panel > p {
+  padding: 6.5vh;
+  font-family: 'Roboto', sans-serif;
+  font-size:20px;
 }

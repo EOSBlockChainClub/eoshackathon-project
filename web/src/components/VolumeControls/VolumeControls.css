@@ -1,14 +1,14 @@
 .volume-container {
   position: absolute;
-  top: 48px;
-	right: 10px;
+  top: 36px;
+	right: 5vh;
 }
 
 .volume {
   -webkit-appearance: none;
   width: 120px;
   height: 5px;
-  background: #4CAF50;
+  background: #F36C35;
   border-radius: 4px;
   outline: none;
   opacity: 1;
@@ -17,7 +17,7 @@
 input[type=range]::-moz-range-track {
   width: 120px;
   height: 5px;
-  background: #4CAF50;
+  background:#F36C35;
   border-radius: 4px;
   outline: none;
   opacity: 1;
@@ -31,7 +31,7 @@ input[type=range]::-moz-range-track {
 
 .volume:hover {
     opacity: 0.8;
-    background: #4CAF50;
+    background: #F36C35;
 }
 
 .volume::-webkit-slider-thumb {

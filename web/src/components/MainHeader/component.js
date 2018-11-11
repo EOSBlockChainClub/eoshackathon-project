@@ -83,8 +83,9 @@ const MainHeader = ({
 				headerTitle === 'Albums' ||
 				headerTitle === 'Artists') && (
           <div>
-            <h3 className='header-title'>{headerTitle}</h3>
+            {/* <h3 className='header-title'>{headerTitle}</h3> */}
             {headerTitle !== 'Artists' && (
+              <div>
               <button
                 onClick={!songPaused ? pauseSong : resumeSong}
                 className='main-pause-play-btn'>
@@ -93,6 +94,14 @@ const MainHeader = ({
                 <p>PAUSE <i class="fa fa-pause" aria-hidden="true"></i> </p>
               }
               </button>
+
+               <button
+                onClick={!songPaused ? pauseSong : resumeSong}
+                className='main-pause-play-btn main-pause-play-vote-btn '>
+                <p>VOTE <i class="fa fa-check" aria-hidden="true"></i> </p> 
+              
+              </button>
+              </div>
             )}
 
           </div>

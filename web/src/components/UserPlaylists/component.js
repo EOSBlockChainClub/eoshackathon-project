@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import './UserPlaylists.css';
+import TrackSearch from '../TrackSearch';
 
 class UserPlaylists extends Component {
 
@@ -29,10 +30,11 @@ class UserPlaylists extends Component {
 
     return (
       <div className='user-playlist-container'>
-        <h3 className='user-playlist-header'>Playlists</h3>
-        {
+        <h3 className='user-playlist-header'>Artist</h3>
+        <TrackSearch />
+        {/* {
           this.props.playlistMenu && this.renderPlaylists()
-        }
+        } */}
       </div>
     );
   }
