@@ -1,5 +1,5 @@
 {
-    "____comment": "This file was generated with eosio-abigen. DO NOT EDIT Sun Nov 11 00:00:50 2018",
+    "____comment": "This file was generated with eosio-abigen. DO NOT EDIT Sun Nov 11 07:04:35 2018",
     "version": "eosio::abi/1.0",
     "structs": [
         {
@@ -71,6 +71,14 @@
                 {
                     "name": "castable_votes",
                     "type": "asset"
+                },
+                {
+                    "name": "free_plays",
+                    "type": "uint16"
+                },
+                {
+                    "name": "last_recharge",
+                    "type": "uint32"
                 },
                 {
                     "name": "end_subscribe",
@@ -153,6 +161,28 @@
                     "type": "name"
                 }
             ]
+        },
+        {
+            "name": "vote_receipt",
+            "base": "",
+            "fields": [
+                {
+                    "name": "receipt_id",
+                    "type": "uint64"
+                },
+                {
+                    "name": "artist",
+                    "type": "name"
+                },
+                {
+                    "name": "amount",
+                    "type": "asset"
+                },
+                {
+                    "name": "vote_time",
+                    "type": "uint32"
+                }
+            ]
         }
     ],
     "types": [],
@@ -213,6 +243,13 @@
         {
             "name": "songs",
             "type": "song",
+            "index_type": "i64",
+            "key_names": [],
+            "key_types": []
+        },
+        {
+            "name": "votereceipts",
+            "type": "vote_receipt",
             "index_type": "i64",
             "key_names": [],
             "key_types": []
