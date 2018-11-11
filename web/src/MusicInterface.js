@@ -178,22 +178,22 @@ class MusicInterface {
         return await this.send(actions);
     }
 
-    //TODO: getSongsFromAlbum
-    async getSongsFromAlbum(albumId) {
-        let response = await this.api.rpc.get_table_rows({code: this.contractName, scope: albumId, table: "songs"});
-        return response['rows'];
-    }
+    // //TODO: getSongsFromAlbum
+    // async getSongsFromAlbum(albumId) {
+    //     let response = await this.api.rpc.get_table_rows({code: this.contractName, scope: albumId, table: "songs"});
+    //     return response['rows'];
+    // }
 
-    async getAllSongsFromArtist(artistName){
-        let albums = await this.getAlbums(artistName);
-        let album_songs = [];
-
-        for (let i = 0; i < albums.length; i++) {
-            let albumsSongs = await this.getSongsFromAlbum(albums[i].album_id);
-            album_songs.push({ album: albums[i], songs: albumsSongs });
-        }
-        return album_songs;
-    }
+    // async getAllSongsFromArtist(artistName){
+    //     let albums = await this.getAlbums(artistName);
+    //     let album_songs = [];
+    //
+    //     for (let i = 0; i < albums.length; i++) {
+    //         let albumsSongs = await this.getSongsFromAlbum(albums[i].album_id);
+    //         album_songs.push({ album: albums[i], songs: albumsSongs });
+    //     }
+    //     return album_songs;
+    // }
 
     //TODO: streamSong args: uint64_t song_id, name listener
     async streamSong(songId, listener) {
@@ -260,14 +260,11 @@ class MusicInterface {
 //     // }
 //
 //     try {
-//         let artist = await interface.getArtist(userAccounts[3]);
-//         let album_songs = await interface.getAllSongsFromArtist(userAccounts[3]);
+//         let artist = await interface.getArtist(userAccounts[4]);
+//         let albums = await interface.getAlbums(userAccounts[4]);
 //
-//         for (let i = 0; i < album_songs.length; i ++) {
-//             console.log(album_songs[i]);
-//             for(let j = 0; j < album_songs[i].songs.length; j++) {
-//                 console.log(album_songs[i].songs[j]);
-//             }
+//         for (let i = 0; i < albums.length; i ++) {
+//             console.log(albums[i]);
 //         }
 //
 //     } catch(e) {
