@@ -66,13 +66,12 @@ public:
     };
 
     struct [[eosio::table]] vote_receipt {
-        uint64_t receipt_id;
         name artist;
         asset amount;
         uint32_t vote_time;
 
-        uint64_t primary_key() const { return receipt_id; }
-        EOSLIB_SERIALIZE(vote_receipt, (receipt_id)(artist)(amount)(vote_time))
+        uint64_t primary_key() const { return artist.value; }
+        EOSLIB_SERIALIZE(vote_receipt, (artist)(amount)(vote_time))
     };
 
     struct [[eosio::table]] board {
@@ -153,11 +152,11 @@ public:
     [[eosio::action]]
     void claimpayout(name artist);
 
+    [[eosio::action]]
+    void vote(name artist, name voter);
+
     //Helper Functions
 
     void check_winner();
-
-    [[eosio::action]]
-    void vote(name artist, name voter);
 
 };
