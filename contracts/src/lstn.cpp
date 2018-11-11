@@ -74,12 +74,12 @@ void lstn::regartist(name member, string band_name) {
 void lstn::postalbum(name artist, string album_name) {
     require_auth(artist);
 
-    albums_table albums(_self, artist.value);
-    auto alb_itr = albums.available_primary_key();
-
     artists_table artists(_self, _self.value);
     auto art_itr = artists.find(artist.value);
     eosio_assert(art_itr != artists.end(), "artist doesn't exist on the platform");
+
+    albums_table albums(_self, artist.value);
+    auto alb_itr = albums.available_primary_key();
 
     auto new_album_id = albums.available_primary_key();
 
@@ -95,18 +95,31 @@ void lstn::postalbum(name artist, string album_name) {
 void lstn::addsong(name artist, uint64_t album_id, string song_name, string ipfs_link) {
     require_auth(artist);
 
-    artists_table artists(_self, _self.value);
-    auto art_itr = artists.find(artist.value);
-    eosio_assert(art_itr != artists.end(), "artist doesn't exist on the platform");
+    // artists_table artists(_self, _self.value);
+    // auto art_itr = artists.find(artist.value);
+    // eosio_assert(art_itr != artists.end(), "artist doesn't exist on the platform");
 
     albums_table albums(_self, artist.value);
+    auto alb = albums.get(album_id);
 
-    songs_table songs(_self, album_id);
+    //songs_table songs(_self, album_id);
     
-    songs.emplace(_self, [&]( auto& l ) {
-        l.song_id = songs.available_primary_key();
-        l.song_name = song_name;
-        l.ipfs_link = ipfs_link;
+    // songs.emplace(_self, [&]( auto& l ) {
+    //     l.song_id = songs.available_primary_key();
+    //     l.song_name = song_name;
+    //     l.ipfs_link = ipfs_link;
+    // });
+
+    song new_song = song{
+        song_name,
+        0,
+        ipfs_link
+    };
+
+    alb.songs.push_back(new_song);
+
+    albums.modify(alb, same_payer, [&]( auto& l ) {
+        l.songs = alb.songs;
     });
 
 }
@@ -114,10 +127,10 @@ void lstn::addsong(name artist, uint64_t album_id, string song_name, string ipfs
 void lstn::streamsong(uint64_t album_id, uint64_t song_id, name listener) {
     require_auth(listener);
 
-    songs_table songs(_self, album_id);
-    auto s_itr = songs.find(song_id);
-    eosio_assert(s_itr != songs.end(), "song doesn't exist on the platform");
-    auto sng = *s_itr;
+    // songs_table songs(_self, album_id);
+    // auto s_itr = songs.find(song_id);
+    // eosio_assert(s_itr != songs.end(), "song doesn't exist on the platform");
+    // auto sng = *s_itr;
 
     listeners_table listeners(_self, _self.value);
     auto l_itr = listeners.find(listener.value);
@@ -141,25 +154,25 @@ void lstn::streamsong(uint64_t album_id, uint64_t song_id, name listener) {
         l.last_recharge = new_recharge_time;
     });
 
-    songs.modify(s_itr, same_payer, [&]( auto& l ) {
-        l.plays += uint32_t(1);
-    });
+    // songs.modify(s_itr, same_payer, [&]( auto& l ) {
+    //     l.plays += uint32_t(1);
+    // });
 
     //update leaderboards
 
-    if (sng.song_id == b.most_plays_song_id) {
-        return;
-    } else {
-        songs_table leader(_self, b.most_plays_album_id);
-        auto top_song = leader.get(b.most_plays_song_id);
+    // if (sng.song_id == b.most_plays_song_id) {
+    //     return;
+    // } else {
+    //     songs_table leader(_self, b.most_plays_album_id);
+    //     auto top_song = leader.get(b.most_plays_song_id);
 
-        if (sng.plays > top_song.plays) {
-            b.most_plays_song_id = sng.song_id;
-            b.most_plays_album_id = album_id;
-            //TODO: update artist
-        }
+    //     if (sng.plays > top_song.plays) {
+    //         b.most_plays_song_id = sng.song_id;
+    //         b.most_plays_album_id = album_id;
+    //         //TODO: update artist
+    //     }
 
-    }
+    // }
 
     //TODO: don't award for listening to own music
 

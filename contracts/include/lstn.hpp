@@ -44,24 +44,25 @@ public:
     };
 
     struct [[eosio::table]] song {
-        uint64_t song_id;
+        //uint64_t song_id;
         string song_name;
         uint32_t plays;
         string ipfs_link;
 
-        uint64_t primary_key() const { return song_id; }
-        EOSLIB_SERIALIZE(song, (song_id)(song_name)(plays)(ipfs_link))
+        //uint64_t primary_key() const { return song_id; }
+        //EOSLIB_SERIALIZE(song, (song_id)(song_name)(plays)(ipfs_link))
     };
 
     struct [[eosio::table]] album {
         uint64_t album_id;
         string album_name;
-        //string art_ipfs_url; //TODO: 
+        string art_ipfs_url;
         name artist;
+        vector<song> songs;
         uint32_t post_time;
 
         uint64_t primary_key() const { return album_id; }
-        EOSLIB_SERIALIZE(album, (album_id)(album_name)(artist)(post_time))
+        EOSLIB_SERIALIZE(album, (album_id)(album_name)(art_ipfs_url)(artist)(songs)(post_time))
     };
 
     struct [[eosio::table]] vote_receipt {

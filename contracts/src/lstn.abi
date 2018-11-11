@@ -1,5 +1,5 @@
 {
-    "____comment": "This file was generated with eosio-abigen. DO NOT EDIT Sun Nov 11 09:33:28 2018",
+    "____comment": "This file was generated with eosio-abigen. DO NOT EDIT Sun Nov 11 10:21:45 2018",
     "version": "eosio::abi/1.0",
     "structs": [
         {
@@ -37,8 +37,16 @@
                     "type": "string"
                 },
                 {
+                    "name": "art_ipfs_url",
+                    "type": "string"
+                },
+                {
                     "name": "artist",
                     "type": "name"
+                },
+                {
+                    "name": "songs",
+                    "type": "song[]"
                 },
                 {
                     "name": "post_time",
@@ -205,10 +213,6 @@
             "base": "",
             "fields": [
                 {
-                    "name": "song_id",
-                    "type": "uint64"
-                },
-                {
                     "name": "song_name",
                     "type": "string"
                 },
@@ -246,6 +250,20 @@
             "fields": [
                 {
                     "name": "listener",
+                    "type": "name"
+                }
+            ]
+        },
+        {
+            "name": "vote",
+            "base": "",
+            "fields": [
+                {
+                    "name": "artist",
+                    "type": "name"
+                },
+                {
+                    "name": "voter",
                     "type": "name"
                 }
             ]
@@ -308,6 +326,11 @@
         {
             "name": "subscribe",
             "type": "subscribe",
+            "ricardian_contract": ""
+        },
+        {
+            "name": "vote",
+            "type": "vote",
             "ricardian_contract": ""
         }
     ],
