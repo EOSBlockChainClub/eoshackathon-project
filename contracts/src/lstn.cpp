@@ -119,10 +119,11 @@ void lstn::addsong(name artist, uint64_t album_id, string song_name, string ipfs
         ipfs_link
     };
 
-    alb.songs.push_back(new_song);
+    vector<song> new_songs = alb.songs;
+    new_songs.push_back(new_song);
 
     albums.modify(alb, same_payer, [&]( auto& l ) {
-        l.songs = alb.songs;
+        l.songs = new_songs;
     });
 
 }
