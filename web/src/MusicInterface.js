@@ -36,15 +36,18 @@ class MusicInterface {
 
         await this.postAlbum(userAccounts[3], "Jazz");
         let id = await this.getLastAlbumId(userAccounts[3]);
+        console.log("Getting Jazz Album ID: ", id);
         await this.addSong(userAccounts[3], "Don't Stop Me Now", id, "Qmadjkfhadlkfhalsdkfj");
 
         await this.postAlbum(userAccounts[3], "News of the World");
         id = await this.getLastAlbumId(userAccounts[3]);
+        console.log("Getting News of the World id: ", id);
         await this.addSong(userAccounts[3], "Bohemian Rhapsody", id, "Qmklsdfjasdhfjksadhflkhasd");
 
         await this.regArtist(userAccounts[4], "Modest Mouse");
         await this.postAlbum(userAccounts[4], "Good News for People Who Love Bad News");
         id = await this.getLastAlbumId(userAccounts[4]);
+        console.log("getting Good News id: ", id);
         await this.addSongs(userAccounts[4], id, [
             { songName: "Float On", link: "Qmadsfjkhadsljkfhasljdkfh"},
             { songName: "Ocean Breathes Salty", link: "Qmadjkfhlakdhfkljshadf"},
@@ -54,6 +57,7 @@ class MusicInterface {
         await this.regArtist(userAccounts[5], "Bag Raiders");
         await this.postAlbum(userAccounts[5], "Bag Raiders");
         id = await this.getLastAlbumId(userAccounts[5]);
+        console.log("getting bag raider album id: ", id);
         await this.addSong(userAccounts[5], "Shooting Stars", id, "Qmfdajskhvjhbuyaef");
     }
 
@@ -103,6 +107,15 @@ class MusicInterface {
             table_key: artistName
         });
         return response['rows'][0];
+    }
+
+    async getAllArtist() {
+        let response = await this.api.rpc.get_table_rows({
+            code: this.contractName,
+            scope: this.contractName,
+            table: "artists"
+        });
+        return response['rows'];
     }
 
     //TODO: postAlbum args: name artist, string album_name, string song_name, string ipfs_link
@@ -175,11 +188,10 @@ class MusicInterface {
         let albums = await this.getAlbums(artistName);
         let album_songs = [];
 
-        albums.forEach(async (album) => {
-           let albumsSongs = await this.getSongsFromAlbum(album.album_id);
-           console.log(albumsSongs);
-           album_songs.push({ album: album, songs: albumsSongs });
-        });
+        for (let i = 0; i < albums.length; i++) {
+            let albumsSongs = await this.getSongsFromAlbum(albums[i].album_id);
+            album_songs.push({ album: albums[i], songs: albumsSongs });
+        }
         return album_songs;
     }
 
@@ -247,11 +259,21 @@ class MusicInterface {
 //     //     console.log("Error initializing mock data: ", e);
 //     // }
 //
-//     let artist = await interface.getArtist(userAccounts[3]);
-//     let album_songs = await interface.getAllSongsFromArtist(userAccounts[3]);
+//     try {
+//         let artist = await interface.getArtist(userAccounts[3]);
+//         let album_songs = await interface.getAllSongsFromArtist(userAccounts[3]);
 //
-//     console.log(artist);
-//     console.log(album_songs);
+//         for (let i = 0; i < album_songs.length; i ++) {
+//             console.log(album_songs[i]);
+//             for(let j = 0; j < album_songs[i].songs.length; j++) {
+//                 console.log(album_songs[i].songs[j]);
+//             }
+//         }
+//
+//     } catch(e) {
+//         console.log(e);
+//     }
+//
 // })();
 
 let contractName = "useraaaaaaag";
